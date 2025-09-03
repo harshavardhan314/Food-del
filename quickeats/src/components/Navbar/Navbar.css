@@ -1,32 +1,125 @@
+.navbar {
+  width: 100%;
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
 
-.nav-items
-{
-    display: flex;
-    list-style: none;
-    gap: 20px;
-    align-items: center;
-    justify-content: center;
+.logo {
+    font-size: 24px;
+  cursor: pointer;
 }
-.nav-items li{
-    cursor: pointer;
-    font-weight: 500;
-    font-size: 18px;
-}
-.nav-items li:hover{
-    color: #ff5722;
-    transition: 0.3s ease-in-out;
-}
-.nav-right
-{
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-.navbar
-{
-    padding: 20px 0px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 
+.nav-items {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+  align-items: center;
+}
+
+.nav-items li {
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 16px;
+  color: #333;
+  transition: color 0.3s ease-in-out;
+}
+
+.nav-items li:hover {
+  color: #ff5722;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.nav-icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.nav-icon:hover {
+  transform: scale(1.1);
+}
+
+.cart-icon {
+  position: relative;
+}
+
+.cart-icon::after {
+  content: "3"; /* static for now, can make dynamic */
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background: #ff5722;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+
+.sign-in {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 20px;
+  background: #ff5722;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.sign-in:hover {
+  background: #e64a19;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-items {
+    display: none; /* later replace with hamburger menu */
+  }
+
+  .navbar {
+    padding: 15px 20px;
+  }
+}
+.nav-items li {
+  position: relative;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 16px;
+  color: #333;
+  transition: color 0.3s ease-in-out;
+}
+
+/* Create hidden underline */
+.nav-items li::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px; /* adjust spacing */
+  width: 0%;
+  height: 2px;
+  background-color: #ff5722;
+  transition: width 0.3s ease-in-out;
+}
+
+/* Expand underline on hover */
+.nav-items li:hover {
+  color: #ff5722;
+}
+
+.nav-items li:hover::after {
+  width: 100%;
 }
