@@ -84,7 +84,7 @@
   background: #e64a19;
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
   .nav-items {
     display: none; 
