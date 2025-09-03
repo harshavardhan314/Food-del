@@ -1,0 +1,32 @@
+
+.nav-items
+{
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+.nav-items li{
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 18px;
+}
+.nav-items li:hover{
+    color: #ff5722;
+    transition: 0.3s ease-in-out;
+}
+.nav-right
+{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.navbar
+{
+    padding: 20px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
