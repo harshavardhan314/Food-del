@@ -87,7 +87,7 @@
 /* Responsive */
 @media (max-width: 768px) {
   .nav-items {
-    display: none; /* later replace with hamburger menu */
+    display: none; 
   }
 
   .navbar {
