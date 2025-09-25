@@ -1,0 +1,8 @@
+.Header
+{
+    height: 34vw;
+    margin: 30px 0;
+    background: url('../../assets/header_img.png') no-repeat;
+    background-size:contain ;
+    position: relative;
+}
