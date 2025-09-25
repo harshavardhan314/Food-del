@@ -7,8 +7,9 @@ const Header = () => {
         <div className="Header">
 
             <div className="Header-content">
-                    <h1>Good food choices are good investments.</h1>
-                    <p>Start your day with exclusive breakfast, lunch and dinner options from your favourite restaurants.</p>
+                    <h2>Order Your Favorite Food here.</h2>
+                    <p>Choose from a diverse menu of restaurants and cuisines, delivered straight to your doorstep
+                    our mission is to satisfy your cravings and elevate your dining experience, one delicious meal at a time.</p>
                     <button className='explore-menu'>Explore menu</button>
 
             </div>
