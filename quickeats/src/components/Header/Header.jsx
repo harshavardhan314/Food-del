@@ -13,23 +13,6 @@ const Header = () => {
                     <button className='explore-menu'>View menu</button>
             </div>
         </div>
-        <div className="menu">
-              <h3>Explore Our Menu</h3>
-              <p>Choose from a diverse menu of restaurants and cuisines, delivered straight to your doorstep
-                    our mission is to satisfy your cravings and elevate your dining experience, one delicious meal at a time.</p>
-        </div>
-        <div className="menu-items">
-
-          {
-          menu_list.map((item, idx) => (
-
-            <div key={idx} className="menu-item">
-              <img src={item.menu_image} alt={item.menu_name} />
-              <p>{item.menu_name}</p>
-            </div>
-
-        ))}
-        </div>
 
           <div className="Food-list">
 
