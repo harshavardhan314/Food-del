@@ -18,20 +18,6 @@ const Header = () => {
 
           <h2>Top dishes near You</h2>
           <p>Discover the most popular dishes in your area, handpicked by our food experts to satisfy your cravings and delight your taste buds.</p>
-
-          <div className="food-list-grid">
-                {
-                food_list.map((item, idx) => 
-                (
-                  <div key={idx} className="food-item">
-                    <img src={item.image} alt={item.name} />
-                    <h3>{item.name}</h3>
-                    <p>{item.description}</p>
-                    <h2>${item.price}</h2>
-                  </div>
-                ))
-                }
-          </div>
           
         </div>
 
