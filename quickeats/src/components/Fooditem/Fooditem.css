@@ -53,3 +53,19 @@
 {
     transition: cubic-bezier(0.075, 0.82, 0.165, 1);
 }
+.increase-count
+{
+    display: flex;
+    gap: 10px;
+    margin: 10px;
+    align-items: center;
+}
+.increase-count p{
+    font-size: 20px;
+    font-weight: 600;
+}
+.food-img-container
+{
+    display: flex;
+    align-items: end;   
+}
