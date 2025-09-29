@@ -55,10 +55,16 @@
 }
 .increase-count
 {
+    position: absolute;
     display: flex;
     gap: 10px;
-    margin: 10px;
     align-items: center;
+    bottom: 15px;
+    right: 15px;
+    padding: 6px;
+    border-radius: 50px;
+    background-color: white;
+    
 }
 .increase-count p{
     font-size: 20px;
