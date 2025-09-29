@@ -1,6 +1,5 @@
 import React from 'react'
 import './Header.css'
-import {assets,food_list,menu_list} from '../../assets/assets'
 const Header = () => {
   return (
     <div>
@@ -12,13 +11,6 @@ const Header = () => {
                     our mission is to satisfy your cravings and elevate your dining experience, one delicious meal at a time.</p>
                     <button className='explore-menu'>View menu</button>
             </div>
-        </div>
-
-          <div className="Food-list">
-
-          <h2>Top dishes near You</h2>
-          <p>Discover the most popular dishes in your area, handpicked by our food experts to satisfy your cravings and delight your taste buds.</p>
-          
         </div>
 
     </div>

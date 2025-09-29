@@ -47,67 +47,12 @@
     100%{opacity: 1; transform: translateY(0);}
 }
 
-
-
-.food-list-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columns, adjust as needed */
-  gap: 2vw;
-  margin-right: 40px;
-}
-.food-item
-{
-    margin-top: 50px;   
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    text-align: center;
-    align-items: center;
-    padding: 10px;
-    background-color: #fff;
-    height: auto;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-.food-item img
-{
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-}
 .Food-list p{
-    margin-top: 20px;
-}
-.Food-list h2{
-    font-size: 30px;
-    font-weight: 400;
-
-}
-.food-list-grid .food-item h3 {
-    font-size: 1.6vw;
-    font-weight: 600;
-    text-align: start;
-    margin-left: 20px;
-    margin-bottom: 20px;
-    color: #282727;
-}
-.food-list-grid .food-item h2{
-    color: rgb(255, 145, 0);
-    font-weight: 500;
-    text-align: start;
-    margin-left: 20px;
-}
-.food-list-grid .food-item p{
-    font-size: 1vw;
-    color: #555;
-    text-align: start;
-    margin-left: 20px;
-    margin-top: 20px;
-}
-.Food-list p{
-    font-size: 1.2vw;
+    font-size: 1.3vw;
     color: #555;
     margin: 20px;
     text-align: start;
+    justify-content: start;
 
 
 }

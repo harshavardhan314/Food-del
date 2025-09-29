@@ -1,0 +1,21 @@
+.food-display-container
+{
+    margin-top: 30px;
+    display: grid;
+    grid-template-rows: auto auto auto  auto;
+}
+.food-display-title
+{
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+    color: #333333;
+}
+.Food-list-items
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    margin-top: 30px;
+    gap: 30px;
+    row-gap: 50px;
+}
