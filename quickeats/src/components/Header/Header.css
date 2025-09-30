@@ -1,172 +1,58 @@
-.Header {
+.Header
+{
     height: 34vw;
     margin: 30px 0;
-    background: url('../../assets/header_img.png') no-repeat center center;
-    background-size: contain;
+    background: url('../../assets/header_img.png') no-repeat;
+    background-size:contain ;
     position: relative;
 }
-
-.Header-content {
+.Header-content
+{
     color: white;
     position: absolute;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: start;
     gap: 1.5vw;
     max-width: 50%;
     bottom: 10%;
     left: 6vw;
     animation: fadeIn 3s;
 }
-
-.Header-content h2 {
+.Header-content h2
+{
     font-weight: 500;
-    font-size: clamp(22px, 4.5vw, 48px); /* responsive font size */
+    font-size: max(4.5vw,22px);
 }
-
-.Header-content p {
-    font-size: clamp(14px, 1vw, 18px); /* responsive font size */
+.Header-content p
+{
+    font-size: 1vw;
     color: #f0f0f0;
 }
-
-.Header-content button {
-    padding: clamp(8px, 1vw, 16px) clamp(16px, 2.3vw, 32px);
+.Header-content button
+{
+    padding: 1vw 2.3vw;
     border: none;
     border-radius: 50px;
-    background: white;
-    color: #747474;
-    font-size: clamp(14px, 1.2vw, 18px);
+    background:white;
+    color: #747474;;
+    font-size: max(1.2vw,14px);
     font-weight: 600;
     cursor: pointer;
     transition: background 0.3s ease;
 }
-
-/* FadeIn animation stays the same */
-@keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
+@keyframes fadeIn
+{
+    0%{opacity: 0; transform: translateY(20px);}
+    100%{opacity: 1; transform: translateY(0);}
 }
 
-/* Food list paragraph */
-.Food-list p {
-    font-size: clamp(14px, 1.3vw, 18px);
+.Food-list p{
+    font-size: 1.3vw;
     color: #555;
     margin: 20px;
     text-align: start;
-}
+    justify-content: start;
 
-/* Media Queries for smaller screens */
-@media screen and (max-width: 1024px) {
-    .Header-content {
-        max-width: 70%;
-        left: 5%;
-        bottom: 8%;
-        gap: 1rem;
-    }
 
-    .Header-content h2 {
-        font-size: clamp(20px, 5vw, 36px);
-    }
-
-    .Header-content p {
-        font-size: clamp(12px, 2vw, 16px);
-    }
-
-    .Header-content button {
-        padding: 0.6rem 1.2rem;
-        font-size: 14px;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .Header {
-        height: 50vw;
-    }
-
-    .Header-content {
-        max-width: 90%;
-        left: 5%;
-        bottom: 5%;
-        gap: 0.8rem;
-    }
-
-    .Header-content h2 {
-        font-size: clamp(18px, 6vw, 28px);
-    }
-
-    .Header-content p {
-        font-size: clamp(12px, 3vw, 16px);
-    }
-
-    .Header-content button {
-        padding: 0.5rem 1rem;
-        font-size: 12px;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .Header {
-        height: 70vw;
-    }
-
-    .Header-content {
-        gap: 0.5rem;
-        bottom: 5%;
-    }
-
-    .Header-content h2 {
-        font-size: clamp(16px, 7vw, 24px);
-    }
-
-    .Header-content p {
-        font-size: clamp(12px, 4vw, 14px);
-    }
-
-    .Header-content button {
-        padding: 0.4rem 0.8rem;
-        font-size: 12px;
-    }
-
-    .Food-list p {
-        font-size: clamp(12px, 3vw, 14px);
-        margin: 10px;
-    }
-}
-@media screen and (max-width: 480px) {
-    .Header {
-        height: 70vw;
-    }
-
-    .Header-content {
-        max-width: 80%;   /* ✅ shrink content width */
-        gap: 0.4rem;
-        bottom: 5%;
-        left: 5%;
-    }
-
-    .Header-content h2 {
-        font-size: clamp(14px, 5vw, 20px);  /* ✅ smaller heading */
-    }
-
-    .Header-content p {
-        font-size: clamp(10px, 3vw, 12px);  /* ✅ smaller paragraph */
-    }
-
-    .Header-content button {
-        padding: 0.3rem 0.6rem;  /* ✅ smaller button */
-        font-size: 11px;
-    }
-
-    .Food-list p {
-        font-size: clamp(10px, 2.5vw, 12px);
-        margin: 8px;
-    }
-}
-.Header {
-  width: 100%;
-  overflow: hidden; /* hide extra bg image if it spills */
-}
-
-.Header-content {
-  max-width: 90%; /* shrink text area */
 }
