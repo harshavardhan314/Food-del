@@ -162,3 +162,11 @@
         margin: 8px;
     }
 }
+.Header {
+  width: 100%;
+  overflow: hidden; /* hide extra bg image if it spills */
+}
+
+.Header-content {
+  max-width: 90%; /* shrink text area */
+}

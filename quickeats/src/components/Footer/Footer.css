@@ -77,3 +77,36 @@
     margin: 5px;
   }
 }
+/* Ensure footer covers full width with no gaps */
+.footer-container {
+  width: 100%;              /* full width */
+  background-color: #323232; /* dark bg always */
+  margin: 0;                 /* reset unwanted margins */
+  padding: 20px 8vw;
+  padding-top: 80px;
+  margin-top: 100px;
+  box-sizing: border-box;    /* include padding in width */
+}
+
+/* Prevent horizontal overflow */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* hides extra white strip */
+}
+
+.footer-container {
+  width: 100%;
+  background-color: #323232;
+  margin: 0;
+  box-sizing: border-box;
+  padding: 20px 5vw; /* reduce vw padding for small screens */
+}
+
+@media (max-width: 600px) {
+  .footer-container {
+    padding: 20px; /* use fixed padding instead of vw */
+  }
+}
+
+
