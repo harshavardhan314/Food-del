@@ -45,3 +45,40 @@
     height: 2px;
     margin: 20px 0px;
 }
+/* --- Media Query for Responsiveness --- */
+@media (max-width: 768px) {
+   
+    .Footer {
+
+        grid-template-columns: 1fr; 
+        gap: 40px; 
+        text-align: center;
+    }
+
+    .main-heading, .company, .get-in-touch {
+
+        align-items: center; 
+        gap: 15px; 
+    }
+
+    .main-heading div { 
+        display: flex;
+        justify-content: center; 
+    }
+
+  
+    .footer-container {
+        padding: 40px 5vw; 
+        padding-top: 60px;
+        margin-top: 50px;
+        gap: 30px; 
+    }
+}
+
+
+@media (max-width: 480px) {
+    .footer-container {
+        padding-top: 40px;
+    }
+}
+
