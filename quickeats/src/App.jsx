@@ -5,9 +5,11 @@ import Home from './pages/Home/Home'
 import Cart from './pages/Cart/Cart'
 import PlaceOrder from './pages/PlaceOrder/PlaceOrder'
 import Header from './components/Header/Header'
+import Footer from './components/Footer/Footer'
 
 const App = () => {
   return (
+    <>
     <div className='app'>
       <Navbar/>
       <Routes>
@@ -18,6 +20,8 @@ const App = () => {
 
 
     </div>
+    <Footer></Footer>
+    </>
   )
 }
 

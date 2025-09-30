@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import './Fooddisplay.css'
 import { assets, food_list  } from '../../assets/assets'
 import Fooditem from '../Fooditem/Fooditem'
-const Fooddisplay = () => {
+const Fooddisplay = ({category}) => {
+
+
+
   return (
     <div className="food-display-container">
         <div className="food-display-header">
@@ -10,8 +13,11 @@ const Fooddisplay = () => {
         </div>
         <div className="Food-list-items">
             {
-                food_list.map((item)=>{
-                    return(
+                food_list.map((item,id)=>{
+
+                  if(category=='All' ||category===item.category)
+                  {
+                      return(
                       <Fooditem  
                        key={item._id}
                         id={item._id}
@@ -21,6 +27,10 @@ const Fooddisplay = () => {
                         description={item.description}
                       />
                     )
+
+                  }
+                  
+
                 })
             }
         </div>

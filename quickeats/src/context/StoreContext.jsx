@@ -1,5 +1,5 @@
-import React, { useState, createContext } from "react";
-
+import React, { useState, createContext, useEffect } from "react";
+import { food_list } from "../assets/assets";
 // Step 1: Create context
 export const StoreContext = createContext();
 
@@ -27,6 +27,9 @@ const StoreContextProvider = (props) => {
     removeFromCart,
     setCartItems,
   };
+  useEffect(()=>{
+    console.log(cartItems);
+  },[cartItems])
 
   // Step 2: Provide context to children
   return (

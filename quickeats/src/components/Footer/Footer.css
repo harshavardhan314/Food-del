@@ -1,0 +1,32 @@
+.footer-container
+{
+     color: #d9d9d9;
+     background-color: #323232;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     gap: 20px;
+     padding: 20px 8vw;
+     padding-top: 80px;
+}
+.Footer
+{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 80px;
+    
+
+}
+.main-heading p{
+    max-width: 200px;
+    margin: 20px;
+    padding: 1px;
+}
+.images
+{
+    margin: 10px;
+}
+.images img{
+    gap: 20px;
+}
