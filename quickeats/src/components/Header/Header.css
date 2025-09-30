@@ -132,3 +132,33 @@
         margin: 10px;
     }
 }
+@media screen and (max-width: 480px) {
+    .Header {
+        height: 70vw;
+    }
+
+    .Header-content {
+        max-width: 80%;   /* ✅ shrink content width */
+        gap: 0.4rem;
+        bottom: 5%;
+        left: 5%;
+    }
+
+    .Header-content h2 {
+        font-size: clamp(14px, 5vw, 20px);  /* ✅ smaller heading */
+    }
+
+    .Header-content p {
+        font-size: clamp(10px, 3vw, 12px);  /* ✅ smaller paragraph */
+    }
+
+    .Header-content button {
+        padding: 0.3rem 0.6rem;  /* ✅ smaller button */
+        font-size: 11px;
+    }
+
+    .Food-list p {
+        font-size: clamp(10px, 2.5vw, 12px);
+        margin: 8px;
+    }
+}
