@@ -22,14 +22,16 @@ const Footer = () => {
 
         <div className="company">
           <h2>COMPANY</h2>
-          <li>Home</li>
+          <ul>
+             <li>Home</li>
           <li>About</li>
           <li>Delivery</li>
           <li>Privacy Policy</li>
+          </ul>
         </div>
 
         <div className="get-in-touch">
-          <h1>GET IN TOUCH</h1>
+          <h2>GET IN TOUCH</h2>
           <ul>
             <li>+1 (555) 123-4567</li>
             <li>contact @Tomato.com</li>
