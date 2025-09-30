@@ -1,58 +1,112 @@
-.Header
-{
+.Header {
     height: 34vw;
     margin: 30px 0;
-    background: url('../../assets/header_img.png') no-repeat;
-    background-size:contain ;
+    background: url('../../assets/header_img.png') no-repeat center center;
+    background-size: cover; /* cover works better than contain for full background */
     position: relative;
+    border-radius: 15px; /* matches screenshot rounded corners */
+    overflow: hidden;
 }
-.Header-content
-{
+
+.Header-content {
     color: white;
     position: absolute;
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: flex-start;
     gap: 1.5vw;
     max-width: 50%;
     bottom: 10%;
     left: 6vw;
     animation: fadeIn 3s;
 }
-.Header-content h2
-{
-    font-weight: 500;
-    font-size: max(4.5vw,22px);
+
+.Header-content h2 {
+    font-weight: 600;
+    line-height: 1.2;
+    font-size: clamp(22px, 4.5vw, 48px); /* responsive font size */
 }
-.Header-content p
-{
-    font-size: 1vw;
+
+.Header-content p {
+    font-size: clamp(14px, 1vw, 18px);
     color: #f0f0f0;
+    line-height: 1.5;
 }
-.Header-content button
-{
-    padding: 1vw 2.3vw;
+
+.Header-content button {
+    padding: clamp(8px, 1vw, 14px) clamp(16px, 2.3vw, 28px);
     border: none;
     border-radius: 50px;
-    background:white;
-    color: #747474;;
-    font-size: max(1.2vw,14px);
+    background: white;
+    color: #747474;
+    font-size: clamp(14px, 1.2vw, 18px);
     font-weight: 600;
     cursor: pointer;
     transition: background 0.3s ease;
 }
-@keyframes fadeIn
-{
-    0%{opacity: 0; transform: translateY(20px);}
-    100%{opacity: 1; transform: translateY(0);}
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
 }
 
-.Food-list p{
-    font-size: 1.3vw;
+/* Food-list paragraph */
+.Food-list p {
+    font-size: clamp(14px, 1.3vw, 18px);
     color: #555;
     margin: 20px;
     text-align: start;
-    justify-content: start;
+}
 
+/* Responsiveness */
+@media screen and (max-width: 1024px) {
+    .Header {
+        height: 45vw;
+    }
+    .Header-content {
+        max-width: 70%;
+        left: 5%;
+        bottom: 8%;
+        gap: 1rem;
+    }
+}
 
+@media screen and (max-width: 768px) {
+    .Header {
+        height: 55vw;
+    }
+    .Header-content {
+        max-width: 90%;
+        left: 5%;
+        bottom: 6%;
+        gap: 0.8rem;
+    }
+    .Header-content h2 {
+        font-size: clamp(20px, 5.5vw, 32px);
+    }
+    .Header-content p {
+        font-size: clamp(12px, 2vw, 16px);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .Header {
+        height: 70vw;
+    }
+    .Header-content {
+        max-width: 95%;
+        left: 5%;
+        bottom: 5%;
+        gap: 0.5rem;
+    }
+    .Header-content h2 {
+        font-size: clamp(18px, 7vw, 28px);
+    }
+    .Header-content p {
+        font-size: clamp(12px, 3.5vw, 14px);
+    }
+    .Header-content button {
+        padding: 0.5rem 1rem;
+        font-size: 14px;
+    }
 }
