@@ -1,7 +1,7 @@
 import React from 'react'
 import './Navbar.css'
 import {assets} from '../../assets/assets'
-const Navbar = () => {
+const Navbar = ({setLogin}) => {
   return (
     <div className='navbar'>
         <img src={assets.logo} alt="logo" className='logo'/>
@@ -16,7 +16,7 @@ const Navbar = () => {
             <div className="cart-icon">
                 <img src={assets.basket_icon} alt="cart" className='nav-icon'/>
             </div>
-             <button className='sign-in'>sign in</button>
+             <button className='sign-in' onClick={()=>setLogin(true)}>sign in</button>
         </div>
     </div>
   )
