@@ -3,9 +3,10 @@ import './Cart.css'
 import { useContext } from 'react';
 import { StoreContext } from '../../context/StoreContext';
 import { assets } from '../../assets/assets';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = ({setCartpage}) => {
-   
+  const navigate=useNavigate();
    const { removeFromCart, addToCart, cartItems ,food_list, getTotalCartAmount} = useContext(StoreContext);
    
    
@@ -73,7 +74,7 @@ const Cart = ({setCartpage}) => {
               <p>${total}</p> 
             </div>
             
-            <button>PROCEED TO CHECKOUT</button>
+            <button onClick={()=>navigate('./placeorder')}>PROCEED TO CHECKOUT</button>
 
           </div>
 
