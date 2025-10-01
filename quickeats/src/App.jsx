@@ -9,6 +9,7 @@ import Loginpopup from './components/Loginpopup/Loginpopup'
 
 const App = () => {
   const [login, setLogin] = useState(false);
+  const[cartpage,setCartpage]=useState(false);
 
   return (
     <>
@@ -17,7 +18,7 @@ const App = () => {
         <Navbar setLogin={setLogin} />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/cart' element={<Cart />} />
+          <Route path='/cart' element={<Cart setCartpage={setCartpage}/>} />
           <Route path='/placeorder' element={<PlaceOrder />} />
         </Routes>
       </div>
