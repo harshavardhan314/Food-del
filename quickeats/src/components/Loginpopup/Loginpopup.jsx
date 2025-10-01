@@ -4,13 +4,15 @@ import { assets } from '../../assets/assets'
 
 const Loginpopup = ({ setLogin }) => {
 
-    const [currstate,setCurrstate]=useState("Login")
+    const [currstate,setCurrstate]=useState("Signup")
   return (
     <div className="login-popup">
-        <form action="">
+        <form action="" >
             <div className="popup-content">
+              <h2 className='curr-state'>{currstate}</h2>
                 <img src={assets.cross_icon} alt="" onClick={()=>{setLogin(false)}} />
-                <h2>{currstate}</h2>
+                
+            </div>
 
         
         <div className="sign-up-content">
@@ -19,18 +21,21 @@ const Loginpopup = ({ setLogin }) => {
           <input type="email" placeholder="Your email" />
           <input type="password" placeholder="Password" />
 
-          <div className="button">
+          <div className="create-acc-btn">
             <button>Create account</button>
           </div>
 
-          <label>
+        </div>
+
+          <div className='check-box'>
             <input type="checkbox" />
             <span> By continuing, I agree to Terms of Use & Privacy Policy.</span>
-          </label>
+          </div>
 
-          <p>Already have an account? <a href="#">Login here</a></p>
-        </div>
-      </div>
+          {currstate ==='Signup'?  <p>Already have an account? <span onClick={()=>{(setCurrstate("Login"))}} >Login here</span></p>:
+           <p>Create a new account ? <span onClick={()=>(setCurrstate("Signup"))}>Click here</span> </p>}
+
+
 
         </form>
       
