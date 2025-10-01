@@ -37,14 +37,25 @@ const StoreContextProvider = (props) => {
     return totalAmount;
   };
 
+   const getTotalCartItems = () => {
+        let totalItem = 0;
+        for (const item in cartItems) {
+            if (cartItems[item] > 0) {
+                totalItem += cartItems[item];
+            }
+        }
+        return totalItem;
+    };
+
   const contextValue = {
-    // 💡 Add food_list here to make it globally accessible
+    
     food_list, 
     cartItems,
     addToCart,
     removeFromCart,
     setCartItems,
-    getTotalCartAmount, // Add the new total calculation function
+    getTotalCartAmount, 
+    getTotalCartItems
   };
 
   useEffect(() => {
