@@ -1,0 +1,126 @@
+.placeorder-form {
+                display: flex;
+                flex-direction: column; 
+                gap: 30px;
+                margin: 50px auto;
+                max-width: 1050px; 
+                padding: 0 20px;
+            }
+
+            /* Desktop Layout: Side-by-side columns */
+            @media (min-width: 768px) {
+                .placeorder-form {
+                    flex-direction: row; 
+                }
+            }
+
+            /* --- Left Side: Delivery Inputs --- */
+            .order-left {
+                width: 100%;
+                flex-basis: 60%; 
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                padding: 20px;
+                background-color: #ffffff;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            }
+
+            .order-left .title {
+                font-size: 28px;
+                font-weight: 600;
+                color: #333;
+                margin-bottom: 5px;
+                border-bottom: 2px solid #ff5722;
+                padding-bottom: 10px;
+            }
+
+            /* Grouping inputs (First Name / Last Name, City / State, etc.) */
+            .input-group {
+                display: flex;
+                gap: 15px;
+            }
+
+            .input-group input {
+                flex: 1; 
+            }
+
+            .order-left input,
+            .order-left .input-group input {
+                padding: 12px;
+                border: 1px solid #ddd;
+                border-radius: 6px;
+                font-size: 16px;
+                outline: none;
+                transition: border-color 0.3s;
+            }
+
+            .order-left input:focus {
+                border-color: #ff5722;
+            }
+
+            /* --- Right Side: Cart Totals --- */
+            .order-right {
+                width: 100%;
+                flex-basis: 40%; 
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                padding: 20px;
+                background-color: #ffffff;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+                height: fit-content; 
+            }
+
+            .cart-total h2 {
+                font-size: 24px;
+                font-weight: 600;
+                color: #333;
+                margin-bottom: 20px;
+            }
+
+            .total-detail {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 10px;
+                padding-bottom: 5px;
+                border-bottom: 1px dashed #e0e0e0;
+                color: #555;
+            }
+
+            .total-final {
+                font-weight: 700;
+                color: #333;
+                font-size: 18px;
+                border-bottom: none;
+                border-top: 2px solid #333;
+                padding-top: 15px;
+                margin-top: 15px;
+            }
+
+            /* Payment Button */
+            .payment-button {
+                background-color: #ff5722;
+                color: white;
+                font-size: 16px;
+                font-weight: 600;
+                padding: 12px 0;
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+
+            .payment-button:hover {
+                background-color: #e64a19;
+            }
+
+            /* Mobile adjustments for input groups */
+            @media (max-width: 480px) {
+                .input-group {
+                    flex-direction: column;
+                    gap: 10px;
+                }
+            }
