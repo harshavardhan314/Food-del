@@ -3,13 +3,23 @@ import './Cart.css'
 import { useContext } from 'react';
 import { StoreContext } from '../../context/StoreContext';
 import { assets } from '../../assets/assets';
+
 const Cart = ({setCartpage}) => {
-   const { removeFromCart, addToCart, cartItems ,food_list} = useContext(StoreContext);
+   
+   const { removeFromCart, addToCart, cartItems ,food_list, getTotalCartAmount} = useContext(StoreContext);
+   
+   
+   const deliveryFee = 2; 
+   
+  
+   const subtotal = getTotalCartAmount();
+   const total = subtotal > 0 ? subtotal + deliveryFee : 0;
+   
   return (
     <div className="cart">
 
       <div className="cart-items">
-
+  
         <div className="cart-items-title">
           <p>Items</p>
           <p>Title</p>
@@ -25,7 +35,8 @@ const Cart = ({setCartpage}) => {
             if(cartItems[item._id]>0)
             {
               return(
-                <>
+                <React.Fragment key={item._id}> 
+          
                 <div className="cart-items-list cart-items-title">
                   <img src={item.image} alt="" />
                   <p>{item.name}</p>
@@ -34,41 +45,54 @@ const Cart = ({setCartpage}) => {
                   <p>${item.price*cartItems[item._id]}</p>
                   <p className='cross' onClick={()=>removeFromCart(item._id)}>×</p>
                 </div>
-                <hr></hr>
-                </>
-                
+                <hr/>
+                </React.Fragment>
               )
-
             }
-
+            return null; 
           })
         }
       </div>
       <div className="cart-bottom">
         <div className="cart-total">
-          <h2>Cart totals</h2>
+          <h2>Cart Total</h2>
           <div>
             <div className="car-total-details">
               <p>Subtotal</p>
-              <p>{0}</p>
+             
+              <p>${subtotal}</p>
             </div>
             <div className="car-total-details">
               <p>Delivery Fee</p>
-              <p>{2}</p>
+              
+              <p>${subtotal === 0 ? 0 : deliveryFee}</p> 
             </div>
             <div className="car-total-details">
               <p>Total</p>
-              <p>{0}</p>
+             
+              <p>${total}</p> 
             </div>
+            
+            <button>PROCEED TO CHECKOUT</button>
 
           </div>
 
         </div>
+        
+        {/* PROMOCODE SECTION - Reordered placement to match the image */}
+        <div className="cart-promocode">
+            <div>
+              <p>If you have a promocode, Enter it here</p>
+              <div className="promocode">
+                <input type="text" placeholder='Promo code'/>
+                <button>Submit</button>
+              </div>
+            </div>
+        </div>
+        
       </div>
-
-
     </div>
   )
 }
 
-export default Cart
+export default Cart;
