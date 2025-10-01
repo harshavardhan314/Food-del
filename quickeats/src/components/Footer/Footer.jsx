@@ -3,8 +3,8 @@ import "./Footer.css";
 import { assets } from "../../assets/assets";
 const Footer = () => {
   return (
-    <div className="footer-container">
-      <div className="Footer">
+    <div className="footer-container" id="contact">
+      <div className="Footer" >
         <div className="main-heading">
           <img src={assets.logo} alt="" />
           <p>

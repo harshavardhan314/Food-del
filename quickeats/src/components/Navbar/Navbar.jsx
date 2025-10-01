@@ -3,7 +3,16 @@ import './Navbar.css'
 import {assets} from '../../assets/assets'
 import { Link } from 'react-router-dom'
 import { StoreContext } from '../../context/StoreContext'
+import { useNavigate } from "react-router-dom";
 const Navbar = ({setLogin}) => {
+  const navigate = useNavigate();
+
+  const handleHomeClick = () => {
+    navigate("/"); // Go to Home route if not already there
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" }); // Scroll to top
+    }, 50);
+  };
 
   const { getTotalCartItems} =useContext(StoreContext)
   const [cartpage,Setcartpage]=useState(false)
@@ -18,11 +27,11 @@ const Navbar = ({setLogin}) => {
       </Link>
        
         <ul className='nav-items'>
-          <Link to='/'>  <li>Home</li></Link>
+         <li onClick={handleHomeClick}>Home</li>
            
-            <li>Menu</li>
-            <li>Contact us</li>
-            <li>Mobile app</li>
+           <li><a href="#menu">Menu</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+      <li><a href="#mobile-app">Mobile App</a></li>
         </ul>
         <div className="nav-right">
           <div className="search-container">

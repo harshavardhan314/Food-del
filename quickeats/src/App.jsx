@@ -22,7 +22,8 @@ const App = () => {
           <Route path='cart/placeorder' element={<PlaceOrder />} />
         </Routes>
       </div>
-      <Footer />
+     <Footer id="contact" />
+
     </>
   )
 }
