@@ -91,19 +91,12 @@ const Navbar = ({setLogin}) => {
       </ul>
       
       <div className="nav-right">
-        <div className="search-container">
-          <img 
-            src={assets.search_icon} 
-            alt="search" 
-            className='nav-icon' 
-            onClick={() => setSearchIcon(prev => !prev)} // Toggles the search box
-          />
-          {searchIcon ? (
-            <div className="search-box">
+        
+            <div className="main-search">
               <input type="text" placeholder='Search for restaurant...'/>
             </div>
-          ) : null}
-        </div>
+          
+      
           
         <div className="cart-icon">
           <Link to='/cart'>
@@ -113,7 +106,7 @@ const Navbar = ({setLogin}) => {
             <div className="dot">{getTotalCartItems()}</div>
           }
         </div>
-        <button className='sign-in' onClick={()=>setLogin(true)}>sign in</button>
+        <button className='sign-in' onClick={()=>setLogin(true)}>Sign in</button>
         
         {/* 2. Toggle Icon Container: Displays the Hamburger or Close icon */}
         <div className='mobile-menu-toggle'>

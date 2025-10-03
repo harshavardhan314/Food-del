@@ -97,7 +97,7 @@
 .sign-in {
     padding: 8px 18px;
     border: none;
-    border-radius: 20px;
+    border-radius: 5px;
     background: #ff5722;
     color: #fff;
     font-size: 15px;
@@ -109,39 +109,28 @@
 .sign-in:hover {
     background: #e64a19;
 }
+.main-search input {
+                    /* Centering: Requires block display and specific width */
+                    display: block; 
+                    width: 400px; /* Specific width for desktop */
+                    max-width: 90%; /* Responsive cap */
+                    margin: 5px auto; /* 20px top/bottom margin, auto left/right margin for centering */
+                    box-sizing: border-box; /* Include padding/border in width */
 
-.search-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
+                    /* Appearance */
+                    padding: 12px 10px;
+                    border: 1px solid #ccc; 
+                    border-radius: 8px; /* Slightly rounded corners */
+                    font-size: 16px; 
+                    outline: none; 
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Clear shadow */
+                    transition: border-color 0.3s, box-shadow 0.3s;
+                }
 
-.search-box {
-    position: absolute;
-    right: 0;
-    top: 30px;
-    width: 300px;
-    padding: 10px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    animation: fadeIn 0.3s ease-out;
-}
-
-.search-box input {
-    width: 100%;
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 15px;
-    outline: none;
-    transition: border-color 0.3s;
-}
-
-.search-box input:focus {
-    border-color: #ff5722;
-}
-
+                .main-search :focus {
+                    border-color: #ff5722;
+                    box-shadow: 0 4px 8px rgba(255, 87, 34, 0.2);
+                }
 .mobile-menu-toggle {
     display: none;
     flex-direction: column;
@@ -199,4 +188,28 @@
         display: flex; 
         order: 4; 
     }
+   
+   
+
+
 }
+
+@media (max-width: 800px) {
+                    .main-search {
+                        /* Tighter spacing for small phones */
+                      width: 200px;
+                    }
+                }
+ @media (max-width: 500px)
+ {
+     
+                    .main-search {
+                       display: none;
+                    }
+ }
+ @media (max-width:500px)
+ {
+    .sign-in{
+        padding: 6px ;
+    } 
+ }
