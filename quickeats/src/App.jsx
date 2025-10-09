@@ -16,7 +16,7 @@ const App = () => {
       <div className='app'>
         {login && <Loginpopup  setLogin={setLogin}/>}
         <Navbar setLogin={setLogin} />
-        <Routes>
+        <Routes>  
           <Route path='/' element={<Home />} />
           <Route path='/cart' element={<Cart setCartpage={setCartpage}/>} />
           <Route path='cart/placeorder' element={<PlaceOrder />} />
