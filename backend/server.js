@@ -1,26 +1,49 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const cors = require("cors");
-const userRoutes = require("./Routes/userroutes");
 
-dotenv.config();
+// load .env variables from backend folder explicitly
+dotenv.config({ path: __dirname + "/.env" });
+
+const userRoute = require("./Routes/userRoute.js");
 const app = express();
-const PORT = 5000;
+const port = process.env.PORT || 5000;
 
-// Middleware
-app.use(cors());
-app.use(bodyParser.json());
+// mongodb connection
 
-// Routes
-app.use("/users", userroutes);
-
-// Connect to MongoDB
 mongoose
   .connect(process.env.MONGOURL)
-  .then(() => console.log("MongoDB Connected"))
-  .catch((err) => console.log(err));
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch((err) => {
+    console.log("Error connecting to MongoDB:", err);
+  });
 
-// Start server
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+app.get("/", (req, res) => {
+  res.send("Hello World harsha!");
+});
+
+// middlewares
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// enable CORS for frontend (adjust origin for production)
+const cors = require("cors");
+app.use(cors());
+
+// guard for missing MONGOURL
+if (!process.env.MONGOURL) {
+  console.error(
+    "FATAL: MONGOURL is not set in backend/.env. Add MONGOURL and restart."
+  );
+  process.exit(1);
+}
+
+// mount routes
+app.use("/api/user", userRoute);
+
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});

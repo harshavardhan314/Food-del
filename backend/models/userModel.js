@@ -1,14 +1,17 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(
   {
+    // user schema fields
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    role: { type: String, default:"user" },
+    role: { type: String, default: "user" },
   },
   { minimize: false }
 );
 
-const userModel = mongoose.model.user || mongoose.model("user", userSchema);
-export default userModel;
+// Use mongoose.models to avoid OverwriteModelError in watch/hot-reload
+const userModel = mongoose.models.user || mongoose.model("user", userSchema);
+
+module.exports = userModel;
