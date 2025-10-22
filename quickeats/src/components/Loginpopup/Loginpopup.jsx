@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Loginpopup.css";
 import { assets } from "../../assets/assets";
-import axios from "axios"; // Make sure axios is installed
+import axios from "axios"; 
 
 const Loginpopup = ({ setLogin }) => {
   const [currstate, setCurrstate] = useState("Signup");
@@ -20,7 +20,7 @@ const Loginpopup = ({ setLogin }) => {
       const payload = { email, password };
       if (currstate === "Signup") payload.name = name;
 
-      // Call your backend API
+      // Calling the  backend API
       const response = await axios.post(
         "http://localhost:5000/api/user/create-user",
         payload
