@@ -9,19 +9,22 @@ const createUser = async (req, res) => {
 
     // Basic input validation
     if (!name || !email || !password) {
-      return res
-        .status(400)
-        .json({ 
-          success: false, 
-          message: `Missing required field: ${!name ? 'name' : !email ? 'email' : 'password'}`
-        });
+      return res.status(400).json({
+        success: false,
+        message: `Missing required field: ${
+          !name ? "name" : !email ? "email" : "password"
+        }`,
+      });
     }
 
     // Validate email
     if (!validator.isEmail(email)) {
       return res
         .status(400)
-        .json({ success: false, message: "Please enter a valid email address" });
+        .json({
+          success: false,
+          message: "Please enter a valid email address",
+        });
     }
 
     // Check if user already exists
@@ -32,19 +35,14 @@ const createUser = async (req, res) => {
         .json({ success: false, message: "This email is already registered" });
     }
 
-    // Validate password
-    if (password.length < 6) {
+    // Validate password (single check)
+    if (typeof password !== "string" || password.length < 6) {
       return res
         .status(400)
-        .json({ success: false, message: "Password must be at least 6 characters long" });
-    }
-
-    // Validate strong password
-    if (!validator.isStrongPassword(password, { minLength: 8 })) {
-      return res.status(400).json({
-        success: false,
-        message: "Password must be at least 8 characters long and strong",
-      });
+        .json({
+          success: false,
+          message: "Password must be at least 6 characters long",
+        });
     }
 
     // Hash password
@@ -71,3 +69,40 @@ const createUser = async (req, res) => {
 };
 
 module.exports = { createUser };
+
+// Simple login stub to avoid undefined handler when route exists
+const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // checking the missing fields
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Email and password are required" });
+    }
+
+    const user = await userModel.findOne({ email });
+    if (!user)
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid credentials" });
+
+    const match = await bcrypt.compare(password, user.password);
+
+    if (!match)
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid credentials" });
+    return res.status(200).json({ success: true, message: "Login successful" });
+  }
+  
+   catch (err) {
+    console.error("Error in loginUser:", err);
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal server error" });
+  }
+};
+
+module.exports.loginUser = loginUser;
