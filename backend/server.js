@@ -2,7 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const bcrypt=require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 // load .env variables from backend folder explicitly
 dotenv.config({ path: __dirname + "/.env" });
@@ -29,6 +29,12 @@ app.get("/", (req, res) => {
 // middlewares
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Add request logging
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} ${req.method} ${req.url}`, req.body);
+  next();
+});
 
 // enable CORS for frontend (adjust origin for production)
 const cors = require("cors");

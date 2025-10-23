@@ -12,32 +12,38 @@ const Loginpopup = ({ setLogin }) => {
   const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // prevent default form submission
-    setError("");
-    setLoading(true);
+  e.preventDefault();
+  setError("");
+  setLoading(true);
 
-    try {
-      const payload = { email, password };
-      if (currstate === "Signup") payload.name = name;
+  try {
+    let url = "";
+    let payload = {};
 
-      // Calling the  backend API
-      const response = await axios.post(
-        "http://localhost:5000/api/user/create-user",
-        payload
-      );
-
-      console.log("User created:", response.data);
-      alert("Account created successfully!");
-
-      // Close the popup
-      setLogin(false);
-    } catch (err) {
-      console.error(err);
-      setError(err.response?.data?.message || "Something went wrong");
-    } finally {
-      setLoading(false);
+    if (currstate === "Signup") {
+      url = "http://localhost:5000/api/user/create-user";
+      payload = { name, email, password };
+    } else {
+      url = "http://localhost:5000/api/user/login-user";
+      payload = { email, password };
     }
-  };
+
+    const response = await axios.post(url, payload);
+
+    if (response.data.success) {
+      alert(response.data.message);
+      setLogin(false); // close popup
+    } else {
+      setError(response.data.message || "Something went wrong");
+    }
+  } catch (err) {
+    console.error(err);
+    setError(err.response?.data?.message || "Server error");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className="login-popup">
