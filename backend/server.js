@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const bcrypt=require("bcrypt");
 
 // load .env variables from backend folder explicitly
 dotenv.config({ path: __dirname + "/.env" });
