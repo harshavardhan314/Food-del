@@ -3,13 +3,13 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const bcrypt = require("bcryptjs");
-
-// load .env variables from backend folder explicitly
-dotenv.config({ path: __dirname + "/.env" });
-
-const userRoute = require("./Routes/userRoute.js");
+// app config
 const app = express();
-const port = process.env.PORT || 5000;
+const port =process.env.PORT || 4000;
+
+//middlewares
+app.use(express.json());
+app.use(cors());
 
 // mongodb connection
 
@@ -22,35 +22,21 @@ mongoose
     console.log("Error connecting to MongoDB:", err);
   });
 
+
+// api endpoints
+app.use("/api/food", foodRouter);
+app.use("/images", express.static("uploads"));
+app.use("/api/user", userRouter);
+app.use("/api/cart", cartRouter);
+app.use("/api/order", orderRouter);
+
 app.get("/", (req, res) => {
-  res.send("Hello World harsha!");
+  res.send("API Working");
 });
-
-// middlewares
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-// Add request logging
-app.use((req, res, next) => {
-  console.log(`${new Date().toISOString()} ${req.method} ${req.url}`, req.body);
-  next();
-});
-
-// enable CORS for frontend (adjust origin for production)
-const cors = require("cors");
-app.use(cors());
-
-// guard for missing MONGOURL
-if (!process.env.MONGOURL) {
-  console.error(
-    "FATAL: MONGOURL is not set in backend/.env. Add MONGOURL and restart."
-  );
-  process.exit(1);
-}
-
-// mount routes
-app.use("/api/user", userRoute);
 
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Server Started on port: ${port}`);
 });
+
+
+

@@ -1,108 +1,77 @@
-const bcrypt = require("bcryptjs");
-const validator = require("validator");
-const userModel = require("../models/userModel.js");
+import userModel from "../models/userModel.js";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import validator from "validator";
 
-// Signup Controller
-const createUser = async (req, res) => {
+// login user
+
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
   try {
-    const { name, email, password } = req.body;
+    const user = await userModel.findOne({ email });
+    if (!user) {
+      return res.json({ success: false, message: "User Doesn't exist" });
+    }
+    const isMatch =await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.json({ success: false, message: "Invalid Credentials" });
+    }
+    const role=user.role;
+    const token = createToken(user._id);
+    res.json({ success: true, token,role });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: "Error" });
+  }
+};
 
-    // Basic input validation
-    if (!name || !email || !password) {
-      return res.status(400).json({
+// Create token
+
+const createToken = (id) => {
+  return jwt.sign({ id }, process.env.JWT_SECRET);
+};
+
+// register user
+
+const registerUser = async (req, res) => {
+  const { name, email, password } = req.body;
+  try {
+    // checking user is already exist
+    const exists = await userModel.findOne({ email });
+    if (exists) {
+      return res.json({ success: false, message: "User already exists" });
+    }
+
+    // validating email format and strong password
+    if (!validator.isEmail(email)) {
+      return res.json({ success: false, message: "Please enter valid email" });
+    }
+    if (password.length < 8) {
+      return res.json({
         success: false,
-        message: `Missing required field: ${
-          !name ? "name" : !email ? "email" : "password"
-        }`,
+        message: "Please enter strong password",
       });
     }
 
-    // Validate email
-    if (!validator.isEmail(email)) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: "Please enter a valid email address",
-        });
-    }
+    // hashing user password
 
-    // Check if user already exists
-    const existingUser = await userModel.findOne({ email });
-    if (existingUser) {
-      return res
-        .status(400)
-        .json({ success: false, message: "This email is already registered" });
-    }
+    const salt = await bcrypt.genSalt(Number(process.env.SALT));
+    const hashedPassword = await bcrypt.hash(password, salt);
 
-    // Validate password (single check)
-    if (typeof password !== "string" || password.length < 6) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: "Password must be at least 6 characters long",
-        });
-    }
-
-    // Hash password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Create new user
     const newUser = new userModel({
-      name,
-      email,
+      name: name,
+      email: email,
       password: hashedPassword,
     });
 
-    await newUser.save();
-
-    return res
-      .status(201)
-      .json({ success: true, message: "User created successfully" });
-  } catch (err) {
-    console.error("Error in createUser:", err);
-    return res
-      .status(500)
-      .json({ success: false, message: "Internal server error" });
+    const user = await newUser.save();
+    const role=user.role;
+    const token = createToken(user._id);
+    res.json({ success: true, token, role});
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: "Error" });
   }
 };
 
-module.exports = { createUser };
-
-// Simple login stub to avoid undefined handler when route exists
-const loginUser = async (req, res) => {
-  try {
-    const { email, password } = req.body;
-
-    // checking the missing fields
-    if (!email || !password) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Email and password are required" });
-    }
-
-    const user = await userModel.findOne({ email });
-    if (!user)
-      return res
-        .status(400)
-        .json({ success: false, message: "Invalid credentials" });
-
-    const match = await bcrypt.compare(password, user.password);
-
-    if (!match)
-      return res
-        .status(400)
-        .json({ success: false, message: "Invalid credentials" });
-    return res.status(200).json({ success: true, message: "Login successful" });
-  }
-  
-   catch (err) {
-    console.error("Error in loginUser:", err);
-    return res
-      .status(500)
-      .json({ success: false, message: "Internal server error" });
-  }
-};
-
-module.exports.loginUser = loginUser;
+export { loginUser, registerUser };
