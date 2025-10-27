@@ -8,11 +8,10 @@ import { useNavigate } from "react-router-dom";
 const Navbar = ({setLogin}) => {
   const navigate = useNavigate();
   const { getTotalCartItems} =useContext(StoreContext)
-  
-  // NEW: State to control the visibility of the mobile menu
   const [isMenuOpen, setIsMenuOpen] = useState(false); 
   const [cartpage,Setcartpage]=useState(false)
   const [searchIcon, setSearchIcon] = useState(false);
+  const {signin}=useContext(StoreContext);
   
   // Helper function to handle navigation to the Home route, then smooth scroll
   const scrollToSection = (targetId) => {
@@ -106,9 +105,19 @@ const Navbar = ({setLogin}) => {
             <div className="dot">{getTotalCartItems()}</div>
           }
         </div>
-        <button className='sign-in' onClick={()=>setLogin(true)}>Sign in</button>
+
+        {
+          signin ? (
+            <img 
+              src={assets.profile_icon} 
+              alt="user"
+              className='nav-icon user-icon'
+            />
+          ):(
+            <button className='sign-in' onClick={()=>setLogin(true)}>Sign in</button>
+          )
+        }
         
-        {/* 2. Toggle Icon Container: Displays the Hamburger or Close icon */}
         <div className='mobile-menu-toggle'>
             {isMenuOpen ? CloseIcon : HamburgerIcon}
         </div>

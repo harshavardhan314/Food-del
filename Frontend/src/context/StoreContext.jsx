@@ -9,7 +9,7 @@ const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
   const [token,setToken]=useState("");
 
-  const url="http://localhost:5000/";
+  const url="http://localhost:5000";
 
   const addToCart = (itemId) => {
     if (!cartItems[itemId]) {
@@ -49,6 +49,7 @@ const StoreContextProvider = (props) => {
         }
         return totalItem;
     };
+    const [signin,setSignin]=useState(false);
 
   const contextValue = {
     
@@ -62,6 +63,8 @@ const StoreContextProvider = (props) => {
 
     token,
     setToken,
+    signin,
+    setSignin,
     url
   };
 
