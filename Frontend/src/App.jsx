@@ -9,22 +9,21 @@ import Loginpopup from './components/Loginpopup/Loginpopup'
 
 const App = () => {
   const [login, setLogin] = useState(false);
-  const [cartpage, setCartpage] = useState(false);
+  const[cartpage,setCartpage]=useState(false);
 
   return (
     <>
       <div className='app'>
-        {login && <Loginpopup setLogin={setLogin} />}
-        <Navbar setLogin={setLogin} setCartpage={setCartpage} />
-
-        <Routes>
+        {login && <Loginpopup  setLogin={setLogin}/>}
+        <Navbar setLogin={setLogin} />
+        <Routes>  
           <Route path='/' element={<Home />} />
-          <Route path='/cart' element={<Cart setCartpage={setCartpage} />} />
-          <Route path='/cart/placeorder' element={<PlaceOrder />} />
+          <Route path='/cart' element={<Cart setCartpage={setCartpage}/>} />
+          <Route path='cart/placeorder' element={<PlaceOrder />} />
         </Routes>
       </div>
+     <Footer id="contact" />
 
-      <Footer id="contact" />
     </>
   )
 }

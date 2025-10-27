@@ -1,20 +1,15 @@
 import React, { useState, createContext, useEffect } from "react";
 // Import both 'food_list' and 'assets' from the assets file
-import { food_list, assets } from "../assets/assets";
+import { food_list, assets } from "../assets/assets"; 
 
 // Step 1: Create context
 export const StoreContext = createContext();
 
-// Helper to get stored user from localStorage
-const getStoredUser = () => {
-  const userStr = localStorage.getItem("user");
-  return userStr ? JSON.parse(userStr) : null;
-};
-
 const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
-  const [user, setUser] = useState(getStoredUser);
-  const [isAuthenticated, setIsAuthenticated] = useState(!!getStoredUser());
+  const [token,setToken]=useState("");
+
+  const url="http://localhost:5000/";
 
   const addToCart = (itemId) => {
     if (!cartItems[itemId]) {
@@ -30,7 +25,7 @@ const StoreContextProvider = (props) => {
       [itemId]: prev[itemId] - 1,
     }));
   };
-
+  
   // New function to calculate total cart amount
   const getTotalCartAmount = () => {
     let totalAmount = 0;
@@ -45,43 +40,29 @@ const StoreContextProvider = (props) => {
     return totalAmount;
   };
 
-  const getTotalCartItems = () => {
-    let totalItem = 0;
-    for (const item in cartItems) {
-      if (cartItems[item] > 0) {
-        totalItem += cartItems[item];
-      }
-    }
-    return totalItem;
-  };
-
-  // Auth methods
-  const login = (userData) => {
-    setUser(userData);
-    setIsAuthenticated(true);
-    localStorage.setItem("user", JSON.stringify(userData));
-  };
-
-  const logout = () => {
-    setUser(null);
-    setIsAuthenticated(false);
-    localStorage.removeItem("user");
-    setCartItems({}); // Clear cart on logout
-  };
+   const getTotalCartItems = () => {
+        let totalItem = 0;
+        for (const item in cartItems) {
+            if (cartItems[item] > 0) {
+                totalItem += cartItems[item];
+            }
+        }
+        return totalItem;
+    };
 
   const contextValue = {
-    food_list,
+    
+    food_list, 
     cartItems,
     addToCart,
     removeFromCart,
     setCartItems,
-    getTotalCartAmount,
+    getTotalCartAmount, 
     getTotalCartItems,
-    // Auth context
-    user,
-    isAuthenticated,
-    login,
-    logout,
+
+    token,
+    setToken,
+    url
   };
 
   useEffect(() => {

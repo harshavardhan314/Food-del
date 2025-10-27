@@ -5,51 +5,46 @@ import axios from "axios";
 import { StoreContext } from "../../context/StoreContext";
 
 const Loginpopup = ({ setLogin }) => {
-  const { login: contextLogin } = useContext(StoreContext);
   const [currstate, setCurrstate] = useState("Signup");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const { url, setToken } = useContext(StoreContext);
+
+  const [data, setData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
-    setLoading(true);
 
     try {
-      const url =
+      let endpoint =
         currstate === "Signup"
-          ? "http://localhost:5000/api/user/create-user"
-          : "http://localhost:5000/api/user/login-user";
+          ? "http://localhost:5000/api/user/signup"
+          : "http://localhost:5000/api/user/login";
 
-      const payload =
-        currstate === "Signup"
-          ? { name, email, password }
-          : { email, password };
+      const res = await axios.post(endpoint, data);
 
-      const response = await axios.post(url, payload);
-
-      if (response.data.success) {
-        // ✅ use backend’s user object
-        const userData = response.data.user;
-
-        // ✅ update global auth state and localStorage
-        contextLogin(userData);
-
-        alert(response.data.message);
-
-        // ✅ close popup
-        setLogin(false);
+      if (res.data.success) {
+        if (currstate === "Signup") {
+          alert(res.data.message || "Signup successful!");
+          setCurrstate("Login"); // switch to login after signup
+        } else {
+          alert(res.data.message || "Login successful!");
+          setToken(res.data.token);
+          localStorage.setItem("token", res.data.token);
+          setLogin(false); // close popup
+        }
       } else {
-        setError(response.data.message || "Something went wrong");
+        alert(res.data.message || "Something went wrong");
       }
     } catch (err) {
-      console.error(err);
-      setError(err.response?.data?.message || "Server error");
-    } finally {
-      setLoading(false);
+      console.error("Error:", err);
+      alert(err.response?.data?.message || "Error occurred during request");
     }
   };
 
@@ -62,49 +57,49 @@ const Loginpopup = ({ setLogin }) => {
             src={assets.cross_icon}
             alt="close"
             onClick={() => setLogin(false)}
+            style={{ cursor: "pointer" }}
           />
         </div>
 
         <div className="sign-up-content">
-          {currstate === "Login" ? null : (
+          {currstate === "Signup" && (
             <input
+              value={data.name}
+              onChange={handleChange}
               type="text"
+              name="name"
               placeholder="Your name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              required
             />
           )}
 
           <input
+            value={data.email}
+            onChange={handleChange}
+            name="email"
             type="email"
             placeholder="Your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            required
           />
-
           <input
+            value={data.password}
+            onChange={handleChange}
+            name="password"
             type="password"
             placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            required
           />
 
           <div className="create-acc-btn">
-            <button type="submit" disabled={loading}>
-              {loading
-                ? "Processing..."
-                : currstate === "Signup"
-                ? "Create Account"
-                : "Login"}
+            <button type="submit">
+              {currstate === "Login" ? "Login" : "Create Account"}
             </button>
           </div>
         </div>
 
         <div className="check-box">
-          <input type="checkbox" />
-          <span>
-            By continuing, I agree to Terms of Use & Privacy Policy.
-          </span>
+          <input type="checkbox" required />
+          <span>By continuing, I agree to Terms of Use & Privacy Policy.</span>
         </div>
 
         {currstate === "Signup" ? (
@@ -118,8 +113,6 @@ const Loginpopup = ({ setLogin }) => {
             <span onClick={() => setCurrstate("Signup")}>Click here</span>
           </p>
         )}
-
-        {error && <p style={{ color: "red" }}>{error}</p>}
       </form>
     </div>
   );
