@@ -213,3 +213,36 @@
         padding: 6px ;
     } 
  }
+
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.profile-container {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 45px; /* adjust as needed */
+  right: 0;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  z-index: 100;
+  width: 150px;
+  text-align: left;
+}
+
+.profile-dropdown p {
+  padding: 10px 15px;
+  margin: 0;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.profile-dropdown p:hover {
+  background: rgba(234, 94, 12, 0.838)
+}
