@@ -1,11 +1,13 @@
+const dotenv = require("dotenv");
+dotenv.config(); // Must be called before requiring routes or controllers
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const dotenv = require("dotenv");
 const userRoute = require("./routes/userRoute");
 const cartRoute = require("./routes/cartRoute");
+const orderRoute = require("./routes/orderRoute");
 
-dotenv.config();
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -33,6 +35,7 @@ mongoose
 app.get("/", (req, res) => res.send("API is running..."));
 app.use("/api/user", userRoute);
 app.use("/api/cart", cartRoute);
+app.use("/api/order", orderRoute);
 
 // Start server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
