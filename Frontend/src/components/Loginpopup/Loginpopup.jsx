@@ -6,7 +6,7 @@ import { StoreContext } from "../../context/StoreContext";
 
 const Loginpopup = ({ setLogin }) => {
   const [currstate, setCurrstate] = useState("Signup");
-  const { url, setToken ,signin,setSignin} = useContext(StoreContext);
+  const { url, setToken, setSignin } = useContext(StoreContext);
 
   const [data, setData] = useState({
     name: "",
@@ -20,31 +20,30 @@ const Loginpopup = ({ setLogin }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      let endpoint =
+      const endpoint =
         currstate === "Signup"
-          ? "http://localhost:5000/api/user/signup"
-          : "http://localhost:5000/api/user/login";
+          ? `${url}/api/user/signup`
+          : `${url}/api/user/login`;
 
       const res = await axios.post(endpoint, data);
 
       if (res.data.success) {
         if (currstate === "Signup") {
           alert(res.data.message || "Signup successful!");
-          setCurrstate("Login"); // switch to login after signup
+          setCurrstate("Login");
         } else {
           alert(res.data.message || "Login successful!");
           setToken(res.data.token);
-          localStorage.setItem("token", res.data.token);
           setSignin(true);
-          setLogin(false); // close popup
+          localStorage.setItem("token", res.data.token);
+          setLogin(false);
         }
       } else {
-        alert(res.data.message || "Something went wrong");
+        alert(res.data.message || "Something went wrong!");
       }
     } catch (err) {
-      console.error("Error:", err);
+      console.error(err);
       alert(err.response?.data?.message || "Error occurred during request");
     }
   };
@@ -53,7 +52,7 @@ const Loginpopup = ({ setLogin }) => {
     <div className="login-popup">
       <form onSubmit={handleSubmit}>
         <div className="popup-content">
-          <h2 className="curr-state">{currstate}</h2>
+          <h2>{currstate}</h2>
           <img
             src={assets.cross_icon}
             alt="close"

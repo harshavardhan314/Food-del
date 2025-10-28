@@ -124,3 +124,10 @@
                     gap: 10px;
                 }
             }
+
+.amount
+{
+    font-size: 18px;
+    font-weight: 600;
+    color: black;
+}

@@ -1,81 +1,32 @@
 import React, { useContext, useState } from "react";
 import "./Navbar.css";
 import { assets } from "../../assets/assets";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { StoreContext } from "../../context/StoreContext";
-import { useNavigate } from "react-router-dom";
 
 const Navbar = ({ setLogin }) => {
   const navigate = useNavigate();
-  const { getTotalCartItems } = useContext(StoreContext);
+  const { getTotalCartItems, signin, setSignin, setToken } =
+    useContext(StoreContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [cartpage, Setcartpage] = useState(false);
-  const [searchIcon, setSearchIcon] = useState(false);
-  const { signin } = useContext(StoreContext);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
 
-
-  const showprofile = () => {};
-
-  // Helper function to handle navigation to the Home route, then smooth scroll
   const scrollToSection = (targetId) => {
-    // Navigate to the Home route (/) if not already there
     navigate("/");
-    // Close the menu after clicking a link
     setIsMenuOpen(false);
-
-    // Wait a moment for the navigation and component rendering, then scroll
     setTimeout(() => {
-      const targetElement = document.getElementById(targetId);
-      if (targetElement) {
-        targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
-      } else {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
+      const el = document.getElementById(targetId);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 100);
   };
 
-  const handleHomeClick = () => scrollToSection("top");
-  const handleMenuClick = () => scrollToSection("menu");
-  const handleContactClick = () => scrollToSection("contact");
-  const handleMobileAppClick = () => scrollToSection("mobile-app");
-
-  // SVG for a simple hamburger icon
-  const HamburgerIcon = (
-    <svg
-      onClick={() => setIsMenuOpen((prev) => !prev)}
-      className="hamburger-icon"
-      viewBox="0 0 24 24"
-      width="30"
-      height="30"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <line x1="3" y1="12" x2="21" y2="12"></line>
-      <line x1="3" y1="6" x2="21" y2="6"></line>
-      <line x1="3" y1="18" x2="21" y2="18"></line>
-    </svg>
-  );
-
-  // SVG for a simple close icon (X)
-  const CloseIcon = (
-    <svg
-      onClick={() => setIsMenuOpen((prev) => !prev)}
-      className="close-icon"
-      viewBox="0 0 24 24"
-      width="30"
-      height="30"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <line x1="18" y1="6" x2="6" y2="18"></line>
-      <line x1="6" y1="6" x2="18" y2="18"></line>
-    </svg>
-  );
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setToken("");
+    setSignin(false);
+    alert("Logged out successfully!");
+    navigate("/");
+  };
 
   return (
     <div className="navbar">
@@ -83,13 +34,11 @@ const Navbar = ({ setLogin }) => {
         <img src={assets.logo} alt="logo" className="logo" />
       </Link>
 
-      {/* 1. Conditionally apply the 'show-menu' class */}
       <ul className={`nav-items ${isMenuOpen ? "show-menu" : ""}`}>
-        {/* Updated list items to use the new click handlers that close the menu */}
-        <li onClick={handleHomeClick}>Home</li>
-        <li onClick={handleMenuClick}>Menu</li>
-        <li onClick={handleContactClick}>Contact Us</li>
-        <li onClick={handleMobileAppClick}>Mobile App</li>
+        <li onClick={() => scrollToSection("top")}>Home</li>
+        <li onClick={() => scrollToSection("menu")}>Menu</li>
+        <li onClick={() => scrollToSection("contact")}>Contact Us</li>
+        <li onClick={() => scrollToSection("mobile-app")}>Mobile App</li>
       </ul>
 
       <div className="nav-right">
@@ -99,12 +48,7 @@ const Navbar = ({ setLogin }) => {
 
         <div className="cart-icon">
           <Link to="/cart">
-            <img
-              src={assets.basket_icon}
-              alt="cart"
-              className="nav-icon"
-              onClick={() => Setcartpage(true)}
-            />
+            <img src={assets.basket_icon} alt="cart" className="nav-icon" />
           </Link>
           {getTotalCartItems() > 0 && (
             <div className="dot">{getTotalCartItems()}</div>
@@ -112,37 +56,58 @@ const Navbar = ({ setLogin }) => {
         </div>
 
         {signin ? (
-  <div className="profile-container">
-    <img
-      src={assets.profile_icon}
-      alt="user"
-      className="nav-icon user-icon"
-      onClick={() => setShowProfileMenu((prev) => !prev)}
-    />
-    {showProfileMenu && (
-      <div className="profile-dropdown">
-        <p onClick={() => navigate('/my-orders')}>My Orders</p>
-        <p
-          onClick={() => {
-            localStorage.removeItem('user');
-            alert("Logged out successfully!");
-            window.location.reload();
-          }}
+          <div className="profile-container">
+            <img
+              src={assets.profile_icon}
+              alt="user"
+              className="nav-icon user-icon"
+              onClick={() => setShowProfileMenu((prev) => !prev)}
+            />
+            {showProfileMenu && (
+              <div className="profile-dropdown">
+                <p onClick={() => navigate("/my-orders")}>My Orders</p>
+                <p onClick={handleLogout}>Logout</p>
+              </div>
+            )}
+          </div>
+        ) : (
+          <button className="sign-in" onClick={() => setLogin(true)}>
+            Sign in
+          </button>
+        )}
+
+        <div
+          className="mobile-menu-toggle"
+          onClick={() => setIsMenuOpen((p) => !p)}
         >
-          Logout
-        </p>
-      </div>
-    )}
-  </div>
-) : (
-  <button className="sign-in" onClick={() => setLogin(true)}>
-    Sign in
-  </button>
-)}
-
-
-        <div className="mobile-menu-toggle">
-          {isMenuOpen ? CloseIcon : HamburgerIcon}
+          {isMenuOpen ? (
+            <svg
+              viewBox="0 0 24 24"
+              width="30"
+              height="30"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          ) : (
+            <svg
+              viewBox="0 0 24 24"
+              width="30"
+              height="30"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          )}
         </div>
       </div>
     </div>

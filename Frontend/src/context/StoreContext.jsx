@@ -1,78 +1,121 @@
 import React, { useState, createContext, useEffect } from "react";
-// Import both 'food_list' and 'assets' from the assets file
-import { food_list, assets } from "../assets/assets"; 
+import { food_list } from "../assets/assets";
+import axios from "axios";
 
-// Step 1: Create context
 export const StoreContext = createContext();
 
 const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
-  const [token,setToken]=useState("");
+  const [token, setToken] = useState("");
+  const [signin, setSignin] = useState(false);
 
-  const url="http://localhost:5000";
+  const url = "http://localhost:5000";
 
-  const addToCart = (itemId) => {
-    if (!cartItems[itemId]) {
-      setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
-    } else {
-      setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
+  // ✅ Add to cart (updates local + backend)
+  const addToCart = async (itemId) => {
+    setCartItems((prev) => ({
+      ...prev,
+      [itemId]: (prev[itemId] || 0) + 1,
+    }));
+
+    if (token) {
+      try {
+        await axios.post(`${url}/api/cart/add`, { itemId });
+      } catch (err) {
+        console.error("Error adding to cart:", err);
+      }
     }
   };
 
-  const removeFromCart = (itemId) => {
-    setCartItems((prev) => ({
-      ...prev,
-      [itemId]: prev[itemId] - 1,
-    }));
+  // ✅ Remove from cart (updates local + backend)
+  const removeFromCart = async (itemId) => {
+    setCartItems((prev) => {
+      const updated = { ...prev };
+      if (updated[itemId] > 1) updated[itemId] -= 1;
+      else delete updated[itemId];
+      return updated;
+    });
+
+    if (token) {
+      try {
+        await axios.post(`${url}/api/cart/remove`, { itemId });
+      } catch (err) {
+        console.error("Error removing from cart:", err);
+      }
+    }
   };
-  
-  // New function to calculate total cart amount
+
+  // ✅ Restore token after refresh
+  useEffect(() => {
+    const savedToken = localStorage.getItem("token");
+    if (savedToken) {
+      setToken(savedToken);
+      setSignin(true);
+    }
+  }, []);
+
+  // ✅ Automatically attach token to axios
+  useEffect(() => {
+    if (token) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    } else {
+      delete axios.defaults.headers.common["Authorization"];
+    }
+  }, [token]);
+
+  // ✅ Fetch cart from backend after login/refresh
+  useEffect(() => {
+    const fetchCart = async () => {
+      if (token) {
+        try {
+          const res = await axios.get(`${url}/api/cart/get`);
+          if (res.data.success) {
+            setCartItems(res.data.cartData || {});
+          }
+        } catch (err) {
+          console.error("Error fetching cart:", err);
+        }
+      }
+    };
+    fetchCart();
+  }, [token]);
+
+  // 🧮 Cart total amount
   const getTotalCartAmount = () => {
     let totalAmount = 0;
     for (const item in cartItems) {
       if (cartItems[item] > 0) {
-        // Find the food item object in food_list by its _id
-        let itemInfo = food_list.find((product) => product._id === item);
-        // Add the price multiplied by the quantity to the total
-        totalAmount += itemInfo.price * cartItems[item];
+        const itemInfo = food_list.find((product) => product._id === item);
+        if (itemInfo) totalAmount += itemInfo.price * cartItems[item];
       }
     }
     return totalAmount;
   };
 
-   const getTotalCartItems = () => {
-        let totalItem = 0;
-        for (const item in cartItems) {
-            if (cartItems[item] > 0) {
-                totalItem += cartItems[item];
-            }
-        }
-        return totalItem;
-    };
-    const [signin,setSignin]=useState(false);
+  // 🧾 Total number of items
+  const getTotalCartItems = () => {
+    let totalItem = 0;
+    for (const item in cartItems) {
+      if (cartItems[item] > 0) totalItem += cartItems[item];
+    }
+    return totalItem;
+  };
 
   const contextValue = {
-    
-    food_list, 
+    food_list,
     cartItems,
     addToCart,
     removeFromCart,
     setCartItems,
-    getTotalCartAmount, 
+    getTotalCartAmount,
     getTotalCartItems,
-
     token,
     setToken,
     signin,
     setSignin,
-    url
+    url,
   };
 
-  useEffect(() => {
-    console.log(cartItems);
-  }, [cartItems]);
-
-  // Step 2: Provide context to children
   return (
     <StoreContext.Provider value={contextValue}>
       {props.children}
