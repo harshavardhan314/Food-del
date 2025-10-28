@@ -1,8 +1,8 @@
-const express=require('express');   
-const authMiddleware=require('../middleware/authMiddleware');
-const { placeOrder }=require('../controllers/ordercontroller');
-const orderRouter=express.Router();
+const express = require("express");
+const router = express.Router();
+const { placeOrder, verifyOrder } = require("../controllers/orderController");
 
-orderRouter.post('/placeorder',authMiddleware,placeOrder);
+router.post("/place", placeOrder);
+router.post("/verify", verifyOrder);
 
-module.exports=orderRouter;
+module.exports = router;

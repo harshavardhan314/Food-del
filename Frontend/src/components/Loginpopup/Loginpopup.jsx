@@ -6,7 +6,7 @@ import { StoreContext } from "../../context/StoreContext";
 
 const Loginpopup = ({ setLogin }) => {
   const [currstate, setCurrstate] = useState("Signup");
-  const { url, setToken, setSignin } = useContext(StoreContext);
+  const { url, setToken, setSignin, setUser } = useContext(StoreContext);
 
   const [data, setData] = useState({
     name: "",
@@ -20,6 +20,7 @@ const Loginpopup = ({ setLogin }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const endpoint =
         currstate === "Signup"
@@ -34,16 +35,24 @@ const Loginpopup = ({ setLogin }) => {
           setCurrstate("Login");
         } else {
           alert(res.data.message || "Login successful!");
-          setToken(res.data.token);
-          setSignin(true);
-          localStorage.setItem("token", res.data.token);
-          setLogin(false);
+
+          // ✅ Store token + user details
+          const { token, user } = res.data;
+          if (token && user) {
+            setToken(token);
+            setSignin(true);
+            setUser(user);
+            localStorage.setItem("token", token);
+            localStorage.setItem("user", JSON.stringify(user));
+          }
+
+          setLogin(false); // Close popup
         }
       } else {
         alert(res.data.message || "Something went wrong!");
       }
     } catch (err) {
-      console.error(err);
+      console.error("Login error:", err);
       alert(err.response?.data?.message || "Error occurred during request");
     }
   };

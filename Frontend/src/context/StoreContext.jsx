@@ -8,10 +8,11 @@ const StoreContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
   const [token, setToken] = useState("");
   const [signin, setSignin] = useState(false);
+  const [user, setUser] = useState(null);
 
   const url = "http://localhost:5000";
 
-  // ✅ Add to cart (updates local + backend)
+  // ✅ Add to cart
   const addToCart = async (itemId) => {
     setCartItems((prev) => ({
       ...prev,
@@ -27,7 +28,7 @@ const StoreContextProvider = (props) => {
     }
   };
 
-  // ✅ Remove from cart (updates local + backend)
+  // ✅ Remove from cart
   const removeFromCart = async (itemId) => {
     setCartItems((prev) => {
       const updated = { ...prev };
@@ -45,12 +46,17 @@ const StoreContextProvider = (props) => {
     }
   };
 
-  // ✅ Restore token after refresh
+  // ✅ Restore user + token after refresh
   useEffect(() => {
     const savedToken = localStorage.getItem("token");
+    const savedUser = localStorage.getItem("user");
+
     if (savedToken) {
       setToken(savedToken);
       setSignin(true);
+    }
+    if (savedUser) {
+      setUser(JSON.parse(savedUser));
     }
   }, []);
 
@@ -63,7 +69,7 @@ const StoreContextProvider = (props) => {
     }
   }, [token]);
 
-  // ✅ Fetch cart from backend after login/refresh
+  // ✅ Fetch cart from backend
   useEffect(() => {
     const fetchCart = async () => {
       if (token) {
@@ -80,7 +86,7 @@ const StoreContextProvider = (props) => {
     fetchCart();
   }, [token]);
 
-  // 🧮 Cart total amount
+  // 🧮 Total amount
   const getTotalCartAmount = () => {
     let totalAmount = 0;
     for (const item in cartItems) {
@@ -92,7 +98,7 @@ const StoreContextProvider = (props) => {
     return totalAmount;
   };
 
-  // 🧾 Total number of items
+  // 🧾 Total items
   const getTotalCartItems = () => {
     let totalItem = 0;
     for (const item in cartItems) {
@@ -113,6 +119,8 @@ const StoreContextProvider = (props) => {
     setToken,
     signin,
     setSignin,
+    user,
+    setUser,
     url,
   };
 
