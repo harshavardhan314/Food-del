@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { StoreContext } from "../../context/StoreContext";
+import toast from "react-hot-toast";
 
 const Verify = () => {
   const [searchParams] = useSearchParams();
@@ -11,7 +12,7 @@ const Verify = () => {
   const success = searchParams.get("success");
   const orderId = searchParams.get("orderId");
 
-  const [status, setStatus] = useState("verifying"); 
+  const [status, setStatus] = useState("verifying");
 
   useEffect(() => {
     const verifyPayment = async () => {
@@ -23,18 +24,22 @@ const Verify = () => {
 
         if (res.data.success) {
           setStatus("success");
-          setTimeout(() => navigate("/"), 4000);
+          toast.success("✅ Payment Successful!");
+          setTimeout(() => navigate("/orders"), 3000);
         } else {
           setStatus("failed");
+          toast.error("❌ Payment Verification Failed!");
         }
       } catch (err) {
         console.error("Verification error:", err);
         setStatus("failed");
+        toast.error("⚠️ Something went wrong during verification!");
       }
     };
 
     verifyPayment();
   }, [success, orderId, url, navigate]);
+
   return (
     <div style={{ textAlign: "center", marginTop: "100px" }}>
       {status === "verifying" && (
@@ -49,6 +54,7 @@ const Verify = () => {
           <h2 style={{ color: "green" }}>✅ Payment Successful!</h2>
           <p>Your order has been verified successfully.</p>
           <p>Order ID: {orderId}</p>
+          <p>Redirecting to your orders page...</p>
         </>
       )}
 

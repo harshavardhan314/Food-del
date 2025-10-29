@@ -8,6 +8,7 @@ import Footer from "./components/Footer/Footer";
 import Loginpopup from "./components/Loginpopup/Loginpopup";
 import Verify from "./pages/Verify/Verify";
 import MyOrders from "./pages/Myorders/Myorders";
+import { Toaster } from "react-hot-toast";
 const App = () => {
   const [login, setLogin] = useState(false);
   const [cartpage, setCartpage] = useState(false);
@@ -15,6 +16,7 @@ const App = () => {
   return (
     <>
       <div className="app">
+        <Toaster position="top-center" reverseOrder={false} />
         {login && <Loginpopup setLogin={setLogin} />}
         <Navbar setLogin={setLogin} />
         <Routes>

@@ -3,7 +3,7 @@ import "./Navbar.css";
 import { assets } from "../../assets/assets";
 import { Link, useNavigate } from "react-router-dom";
 import { StoreContext } from "../../context/StoreContext";
-
+import toast from "react-hot-toast";
 const Navbar = ({ setLogin }) => {
   const navigate = useNavigate();
   const { getTotalCartItems, signin, setSignin, setToken } =
@@ -26,7 +26,7 @@ const Navbar = ({ setLogin }) => {
     localStorage.removeItem("token");
     setToken("");
     setSignin(false);
-    alert("Logged out successfully!");
+     toast.success("Logout Successful");
     navigate("/");
   };
 

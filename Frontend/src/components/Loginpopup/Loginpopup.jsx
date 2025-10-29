@@ -3,7 +3,7 @@ import "./Loginpopup.css";
 import { assets } from "../../assets/assets";
 import axios from "axios";
 import { StoreContext } from "../../context/StoreContext";
-
+import toast from "react-hot-toast";
 const Loginpopup = ({ setLogin }) => {
   const [currstate, setCurrstate] = useState("Signup");
   const { url, setToken, setSignin, setUser } = useContext(StoreContext);
@@ -31,12 +31,12 @@ const Loginpopup = ({ setLogin }) => {
 
       if (res.data.success) {
         if (currstate === "Signup") {
-          alert(res.data.message || "Signup successful!");
+         toast.success("signup Successful");
           setCurrstate("Login");
         } else {
-          alert(res.data.message || "Login successful!");
+          toast.success("Login Successful");
 
-          // ✅ Store token + user details
+          
           const { token, user } = res.data;
           if (token && user) {
             setToken(token);
@@ -49,11 +49,11 @@ const Loginpopup = ({ setLogin }) => {
           setLogin(false); // Close popup
         }
       } else {
-        alert(res.data.message || "Something went wrong!");
+        toast.error(res.data.message || "Invalid Credentials");
       }
     } catch (err) {
-      console.error("Login error:", err);
-      alert(err.response?.data?.message || "Error occurred during request");
+     
+      toast.error("Something went wrong. Try again!");
     }
   };
 
