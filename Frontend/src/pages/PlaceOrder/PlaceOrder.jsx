@@ -61,6 +61,7 @@ const PlaceOrder = () => {
 
       if (response.data.success) {
         window.location.href = response.data.session_url; 
+        
       } else {
         alert("Error creating payment session.");
       }

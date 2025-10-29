@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-const middleware = (req, res, next) => {
+const authMiddleware = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -8,15 +8,13 @@ const middleware = (req, res, next) => {
   }
 
   const token = authHeader.split(" ")[1];
-
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || "dev-secret");
-    req.user = decoded;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded; // ✅ Store user details
     next();
-  } catch (err) {
-    console.error("Token verification failed:", err.message);
-    return res.status(401).json({ success: false, message: "Not Authorized Login Again" });
+  } catch (error) {
+    res.status(401).json({ success: false, message: "Invalid token" });
   }
 };
 
-module.exports = middleware;
+module.exports = authMiddleware;

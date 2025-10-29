@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const userRoute = require("./routes/userRoute");
 const cartRoute = require("./routes/cartRoute");
 const orderRoute = require("./routes/orderRoute");
-
+const { verifyOrder } = require("./controllers/ordercontroller");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -36,6 +36,7 @@ app.get("/", (req, res) => res.send("API is running..."));
 app.use("/api/user", userRoute);
 app.use("/api/cart", cartRoute);
 app.use("/api/order", orderRoute);
+
 
 // Start server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

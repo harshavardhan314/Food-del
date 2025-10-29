@@ -11,8 +11,9 @@ const Navbar = ({ setLogin }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
 
+  // Smooth scroll for homepage sections
   const scrollToSection = (targetId) => {
-    navigate("/");
+    navigate("/"); // navigate to home first
     setIsMenuOpen(false);
     setTimeout(() => {
       const el = document.getElementById(targetId);
@@ -20,6 +21,7 @@ const Navbar = ({ setLogin }) => {
     }, 100);
   };
 
+  // Handle user logout
   const handleLogout = () => {
     localStorage.removeItem("token");
     setToken("");
@@ -30,10 +32,12 @@ const Navbar = ({ setLogin }) => {
 
   return (
     <div className="navbar">
+      {/* Logo */}
       <Link to="/">
         <img src={assets.logo} alt="logo" className="logo" />
       </Link>
 
+      {/* Navigation Links */}
       <ul className={`nav-items ${isMenuOpen ? "show-menu" : ""}`}>
         <li onClick={() => scrollToSection("top")}>Home</li>
         <li onClick={() => scrollToSection("menu")}>Menu</li>
@@ -41,11 +45,14 @@ const Navbar = ({ setLogin }) => {
         <li onClick={() => scrollToSection("mobile-app")}>Mobile App</li>
       </ul>
 
+      {/* Right-side section */}
       <div className="nav-right">
+        {/* Search bar */}
         <div className="main-search">
           <input type="text" placeholder="Search for restaurant..." />
         </div>
 
+        {/* Cart icon */}
         <div className="cart-icon">
           <Link to="/cart">
             <img src={assets.basket_icon} alt="cart" className="nav-icon" />
@@ -55,6 +62,7 @@ const Navbar = ({ setLogin }) => {
           )}
         </div>
 
+        {/* Profile / Sign in */}
         {signin ? (
           <div className="profile-container">
             <img
@@ -63,9 +71,19 @@ const Navbar = ({ setLogin }) => {
               className="nav-icon user-icon"
               onClick={() => setShowProfileMenu((prev) => !prev)}
             />
+
+            {/* Profile dropdown */}
             {showProfileMenu && (
               <div className="profile-dropdown">
-                <p onClick={() => navigate("/my-orders")}>My Orders</p>
+                {/* ✅ Navigate to /orders (matches App.jsx route) */}
+                <p
+                  onClick={() => {
+                    setShowProfileMenu(false);
+                    navigate("/orders");
+                  }}
+                >
+                  My Orders
+                </p>
                 <p onClick={handleLogout}>Logout</p>
               </div>
             )}
@@ -76,11 +94,13 @@ const Navbar = ({ setLogin }) => {
           </button>
         )}
 
+        {/* Mobile menu toggle */}
         <div
           className="mobile-menu-toggle"
           onClick={() => setIsMenuOpen((p) => !p)}
         >
           {isMenuOpen ? (
+            // Close icon
             <svg
               viewBox="0 0 24 24"
               width="30"
@@ -94,6 +114,7 @@ const Navbar = ({ setLogin }) => {
               <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
           ) : (
+            // Hamburger menu icon
             <svg
               viewBox="0 0 24 24"
               width="30"

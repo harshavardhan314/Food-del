@@ -7,7 +7,8 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const placeOrder = async (req, res) => {
   try {
     const { userId, items, amount, address } = req.body;
-    if (!userId) return res.json({ success: false, message: "User ID missing" });
+    if (!userId)
+      return res.json({ success: false, message: "User ID missing" });
 
     // Create new order
     const newOrder = new orderModel({
@@ -54,6 +55,7 @@ const placeOrder = async (req, res) => {
       success_url: `${frontend_url}/verify?success=true&orderId=${newOrder._id}`,
       cancel_url: `${frontend_url}/verify?success=false&orderId=${newOrder._id}`,
     });
+    console.log("Hi Ikkade Error Vastudnhii");
 
     res.json({ success: true, session_url: session.url });
   } catch (error) {
@@ -65,6 +67,7 @@ const placeOrder = async (req, res) => {
 // Payment verification
 const verifyOrder = async (req, res) => {
   const { orderId, success } = req.body;
+  console.log(orderId);
   try {
     if (success === "true") {
       await orderModel.findByIdAndUpdate(orderId, { payment: true });
@@ -79,4 +82,19 @@ const verifyOrder = async (req, res) => {
   }
 };
 
-module.exports = { placeOrder, verifyOrder };
+
+
+const userOrders = async (req, res) => {
+  try {
+    const orders = await orderModel.find({ userId: req.user.id }); // ✅ Use req.user.id
+    res.json({ success: true, data: orders });
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+    res.json({ success: false, message: "Error fetching orders" });
+  }
+};
+
+
+
+
+module.exports = { placeOrder, verifyOrder ,userOrders};
