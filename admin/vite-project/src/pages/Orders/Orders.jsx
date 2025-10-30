@@ -2,12 +2,9 @@ import React from 'react'
 import './Orders.css'
 
 const Orders = () => {
-    const fetchorder=(req,res)=>{
-
-    }
   return (
     <div className='Order'>
-        
+        this is orderes page
       
     </div>
   )

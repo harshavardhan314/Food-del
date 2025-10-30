@@ -62,7 +62,7 @@ const Navbar = ({ setLogin }) => {
           )}
         </div>
 
-        {/* Profile / Sign in */}
+       
         {signin ? (
           <div className="profile-container">
             <img
@@ -72,10 +72,9 @@ const Navbar = ({ setLogin }) => {
               onClick={() => setShowProfileMenu((prev) => !prev)}
             />
 
-            {/* Profile dropdown */}
+            
             {showProfileMenu && (
               <div className="profile-dropdown">
-                {/* ✅ Navigate to /orders (matches App.jsx route) */}
                 <p
                   onClick={() => {
                     setShowProfileMenu(false);

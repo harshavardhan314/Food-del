@@ -2,10 +2,13 @@ import React from 'react'
 import Navbar from './components/Navbar/Navbar'
 import Sidebar from './components/sidebar/Sidebar'
 import { Route, Routes } from 'react-router-dom'
-import Additems from './pages/Additems/Additems'
+import Add from './pages/Additems/Additems'
 import Listitems from './pages/Listitems/Listitems'
 import Orders from './pages/Orders/Orders'
+import Login from './components/Login/Login'
 const App = () => {
+
+  const url="http://localhost:5000"
   return (
     <div>
       <Navbar></Navbar>
@@ -13,10 +16,11 @@ const App = () => {
       <div className="app-content">
          <Sidebar></Sidebar>
          <Routes>
-          <Route path='/Add' element={<Additems></Additems>}></Route>
+          <Route path='/Add' element={<Add url={url}></Add>}></Route>
           <Route path='/List' element={<Listitems></Listitems>}></Route>
           <Route path='/Orders' element={<Orders></Orders>}></Route>
          </Routes>
+         <Login></Login>
       </div>
      
       
