@@ -1,30 +1,27 @@
-import React, { useState } from 'react';
-import './Navbar.css';
-import { assets } from '../../assets/assets';
-import Login from '../Login/Login';
+import React, { useContext } from "react";
+import "./Navbar.css";
+import { assets } from "../../assets/assets";
+import Login from "../Login/Login";
+import { StoreContext } from "../../context/StoreContext";
 
 const Navbar = () => {
-  // State to control showing the Login popup
-  const [showLogin, setShowLogin] = useState(false);
-
-  // Function to open the popup
-  const openPopup = () => setShowLogin(true);
-
-  // Function to close the popup
-  const closePopup = () => setShowLogin(false);
-
+  const { showLogin, setShowLogin } = useContext(StoreContext);
+  const {islogin,setIslogin}=useContext(StoreContext);
   return (
     <div className="Navbar">
       <img src={assets.logo} alt="Logo" className="logo" />
 
       <div className="navbar-right">
-        <button className="login-btn" onClick={openPopup}>
-          Login
+        <button
+          className="login-btn"
+          onClick={() => setShowLogin((prev) => !prev)} // toggle popup
+        >
+          {islogin ? "Logout" : "Login"}
         </button>
       </div>
 
-      {/* Render Login popup when showLogin is true */}
-      {showLogin && <Login closePopup={closePopup} />}
+      {/* Login Popup */}
+      {showLogin && <Login />}
     </div>
   );
 };

@@ -1,5 +1,5 @@
 /* Dark transparent background overlay */
-.login-overlay {
+.login-popup {
   position: fixed;
   top: 0;
   left: 0;
@@ -13,7 +13,7 @@
 }
 
 /* White popup box */
-.login-popup {
+.login-popup-container {
   background: #fff;
   padding: 2rem;
   border-radius: 1rem;
@@ -51,16 +51,19 @@
 /* Submit button */
 .submit-btn {
   width: 100%;
-  background: #ff8800;
-  color: white;
+  background:tomato;
+  color: rgb(255, 255, 255);
   padding: 10px;
   border: none;
   border-radius: 8px;
   margin-top: 10px;
   cursor: pointer;
+  font-size: 15px;
+  font-weight: 400;
+
   transition: background 0.3s;
 }
 
 .submit-btn:hover {
-  background: #b34e00;
+  background: #b36200;
 }
