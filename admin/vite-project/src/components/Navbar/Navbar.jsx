@@ -1,18 +1,32 @@
-import React from 'react'
-import { assets } from "../../assets/assets";
-import './Navbar.css'
+import React, { useState } from 'react';
+import './Navbar.css';
+import { assets } from '../../assets/assets';
+import Login from '../Login/Login';
 
 const Navbar = () => {
-  return (
-    <>
-        <div className='Navbar'>
-           
-                <img src={assets.logo} alt=""  className='logo'/>
-                <img src={assets.profile_image}  className="profile"alt=""  />
-        </div>
-    </>
-    
-  )
-}
+  // State to control showing the Login popup
+  const [showLogin, setShowLogin] = useState(false);
 
-export default Navbar
+  // Function to open the popup
+  const openPopup = () => setShowLogin(true);
+
+  // Function to close the popup
+  const closePopup = () => setShowLogin(false);
+
+  return (
+    <div className="Navbar">
+      <img src={assets.logo} alt="Logo" className="logo" />
+
+      <div className="navbar-right">
+        <button className="login-btn" onClick={openPopup}>
+          Login
+        </button>
+      </div>
+
+      {/* Render Login popup when showLogin is true */}
+      {showLogin && <Login closePopup={closePopup} />}
+    </div>
+  );
+};
+
+export default Navbar;

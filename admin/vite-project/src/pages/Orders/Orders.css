@@ -1,0 +1,112 @@
+/* === Container === */
+.orders-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  font-family: "Poppins", sans-serif;
+  background-color: #f8fafc;
+}
+
+/* === Title === */
+.orders-container h2 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 2rem;
+}
+
+/* === Order Card === */
+.order-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.order-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* === Order Info === */
+.order-card h3 {
+  color: #0f172a;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.order-card p {
+  margin: 0.3rem 0;
+  color: #334155;
+  font-size: 0.95rem;
+}
+
+/* === Items Section === */
+.order-card h4 {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  color: #1e293b;
+  font-weight: 500;
+}
+
+/* === Items List === */
+.order-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: #f1f5f9;
+  padding: 0.8rem;
+  border-radius: 10px;
+  margin-top: 0.8rem;
+  transition: background 0.2s ease;
+}
+
+.order-item:hover {
+  background: #e2e8f0;
+}
+
+.order-item img {
+  border-radius: 10px;
+  object-fit: cover;
+  width: 60px;
+  height: 60px;
+  border: 1px solid #cbd5e1;
+}
+
+.order-item div p {
+  margin: 0.2rem 0;
+  font-size: 0.9rem;
+  color: #475569;
+}
+
+/* === Address Section === */
+.order-card hr {
+  border: none;
+  border-top: 1px solid #e2e8f0;
+  margin-top: 1.5rem;
+}
+
+.order-card p strong {
+  color: #0f172a;
+}
+
+/* === Empty / Loading States === */
+.orders-container p {
+  text-align: center;
+  color: #64748b;
+}
+
+@media (max-width: 768px) {
+  .order-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .order-item img {
+    width: 100%;
+    height: auto;
+  }
+}

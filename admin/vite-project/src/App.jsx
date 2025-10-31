@@ -17,10 +17,9 @@ const App = () => {
          <Sidebar></Sidebar>
          <Routes>
           <Route path='/Add' element={<Add url={url}></Add>}></Route>
-          <Route path='/List' element={<Listitems></Listitems>}></Route>
-          <Route path='/Orders' element={<Orders></Orders>}></Route>
+          <Route path='/List' element={<Listitems url={url} ></Listitems>}></Route>
+          <Route path='/Orders' element={<Orders url={url}></Orders>}></Route>
          </Routes>
-         <Login></Login>
       </div>
      
       

@@ -13,7 +13,7 @@ const userRoute = require("./routes/userRoute");
 const cartRoute = require("./routes/cartRoute");
 const orderRoute = require("./routes/orderRoute");
 const foodRoute = require("./routes/foodRoute"); // Add this if you have a food route
-
+const adminRoutes = require("./routes/adminRoute");
 // Initialize app
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -47,6 +47,7 @@ app.use("/api/user", userRoute);
 app.use("/api/cart", cartRoute);
 app.use("/api/order", orderRoute);
 app.use("/api/food", foodRoute); 
+app.use("/api/admin", adminRoutes);
 
 // --- 404 Fallback ---
 app.use((req, res) => {

@@ -1,9 +1,9 @@
 const orderModel = require("../models/orderModel");
 const userModel = require("../models/userModel");
 const Stripe = require("stripe");
-
+const foodModel=require("../models/foodModel")
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-
+//const orderModel = require("../models/orderModel");
 const placeOrder = async (req, res) => {
   try {
     const { userId, items, amount, address } = req.body;
@@ -94,7 +94,28 @@ const userOrders = async (req, res) => {
   }
 };
 
+// controllers/orderController.js
+
+
+const allOrders = async (req, res) => {
+  try {
+    // Fetch all orders from the database
+    const orders = await orderModel.find();
+
+    res.status(200).json({
+      success: true,
+      data: orders,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Error fetching the orders",
+      error: error.message,
+    });
+  }
+};
 
 
 
-module.exports = { placeOrder, verifyOrder ,userOrders};
+
+module.exports = { placeOrder, verifyOrder ,userOrders,allOrders};
