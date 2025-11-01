@@ -5,24 +5,45 @@ import Login from "../Login/Login";
 import { StoreContext } from "../../context/StoreContext";
 
 const Navbar = () => {
-  const { showLogin, setShowLogin } = useContext(StoreContext);
-  const {islogin,setIslogin}=useContext(StoreContext);
-  return (
-    <div className="Navbar">
-      <img src={assets.logo} alt="Logo" className="logo" />
+  const { showLogin, setShowLogin, isLogin, setIsLogin } = useContext(StoreContext);
 
-      <div className="navbar-right">
-        <button
-          className="login-btn"
-          onClick={() => setShowLogin((prev) => !prev)} // toggle popup
-        >
-          {islogin ? "Logout" : "Login"}
-        </button>
+  const handleButtonClick = () => {
+    if (isLogin) {
+      // Logout flow
+      setIsLogin(false);
+      localStorage.removeItem("adminToken");
+      localStorage.removeItem("admin");
+      alert("Logged out successfully");
+    } else {
+      // Open login popup
+      setShowLogin(true);
+    }
+  };
+
+  return (
+    <>
+      <div className="Navbar">
+        <div className="navbar-left">
+          <img src={assets.logo} alt="Logo" className="logo" />
+        </div>
+
+        <div className="navbar-right">
+          <button className="login-btn" onClick={handleButtonClick}>
+            {isLogin ? "Logout" : "Login"}
+          </button>
+        </div>
       </div>
 
-      {/* Login Popup */}
+      {/* Popup login form */}
       {showLogin && <Login />}
-    </div>
+
+      {/* Welcome message */}
+      {isLogin && (
+        <div className="login-title">
+          <h2 className="admin">Welcome Admin</h2>
+        </div>
+      )}
+    </>
   );
 };
 
