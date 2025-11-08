@@ -12,7 +12,6 @@ const StoreContextProvider = (props) => {
 
   const url = "http://localhost:5000";
 
-  // ✅ Add to cart
   const addToCart = async (itemId) => {
     setCartItems((prev) => ({
       ...prev,
@@ -41,6 +40,7 @@ const StoreContextProvider = (props) => {
       try {
         await axios.post(`${url}/api/cart/remove`, { itemId });
       } catch (err) {
+        
         console.error("Error removing from cart:", err);
       }
     }

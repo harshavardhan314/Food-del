@@ -11,14 +11,12 @@ const Home = () => {
   return (
     <div id="top">
       <Header />
-
-      {/* Menu Section */}
       <section id="menu">
         <ExploreMenu category={category} setCategory={setCategory}/>
         <Fooddisplay category={category} />
       </section>
 
-      {/* Mobile App Section */}
+      
       <section id="mobile-app">
         <Appdownload />
       </section>

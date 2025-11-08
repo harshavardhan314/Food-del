@@ -80,7 +80,7 @@ const Cart = ({setCartpage}) => {
 
         </div>
         
-        {/* PROMOCODE SECTION - Reordered placement to match the image */}
+       
         <div className="cart-promocode">
             <div>
               <p>If you have a promocode, Enter it here</p>

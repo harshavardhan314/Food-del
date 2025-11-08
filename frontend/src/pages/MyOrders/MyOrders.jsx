@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { StoreContext } from "../../context/StoreContext";
 import "./Myorders.css";
-
+import { Toaster } from "react-hot-toast";
 const MyOrders = () => {
   const { url } = useContext(StoreContext);
   const [orders, setOrders] = useState([]);
@@ -21,11 +21,11 @@ const MyOrders = () => {
         if (res.data.success) {
           setOrders(res.data.data);
         } else {
-          alert("Error fetching orders");
+          toast.error("Error fetching orders");
         }
       } catch (err) {
         console.error("Fetch orders error:", err);
-        alert("Error fetching orders");
+        toast.error("Error fetching orders");
       } finally {
         setLoading(false);
       }
